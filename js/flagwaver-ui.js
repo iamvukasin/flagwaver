@@ -301,6 +301,13 @@
         // Init
         //
 
+        // Add random background
+        var backgroundClasses = [ 'sky-over-washington-monument', 'sea-of-clouds',
+            'cloud-sky-blue', 'sky-gradient', 'sky-cloud-blue-sky',
+            'wild-horses', 'cotton-candy-clouds' ];
+        var background = backgroundClasses[ Math.floor( Math.random() * backgroundClasses.length ) ];
+        $( '.bg-sky' ).addClass( background );
+
         // Init flagWaver and append renderer to DOM
         flagWaver.init();
         $( '.js-flag-canvas' ).append( flagWaver.canvas );

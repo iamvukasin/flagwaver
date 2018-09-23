@@ -403,20 +403,95 @@ p, a {
 .bg-sky {
     background-attachment : fixed;
     background-color      : #566C73;
-    background-image      : url('../img/Sky_over_Washington_Monument-480x640px.jpg');
     background-position   : center center;
     background-repeat     : no-repeat;
     background-size       : cover;
 }
 
+.sky-over-washington-monument {
+    background-image : url('../img/Sky_over_Washington_Monument-480x640px.jpg');
+}
+
+.sea-of-clouds {
+    background-image : url('../img/Sea_of_Clouds-480x640px.jpg');
+}
+
+.cloud-sky-blue {
+    background-image : url('../img/Cloud_sky_blue-480x640px.jpg');
+}
+
+.sky-gradient {
+    background-image : url('../img/Sky_Gradient-480x640px.jpg');
+}
+
+.sky-cloud-blue-sky {
+    background-image : url('../img/Sky_cloud_blue_sky-480x640px.jpg');
+}
+
+.wild-horses {
+    background-image : url('../img/Wild_Horses-480x640px.jpg');
+}
+
+.cotton-candy-clouds {
+    background-image : url('../img/Cotton_Candy_Clouds-480x640px.jpg');
+}
+
 @media only screen and (min-width : 480px) {
-    .bg-sky {
+    .sky-over-washington-monument {
         background-image : url('../img/Sky_over_Washington_Monument-800x600px.jpg');
+    }
+
+    .sea-of-clouds {
+        background-image : url('../img/Sea_of_Clouds-800x600px.jpg');
+    }
+
+    .cloud-sky-blue {
+        background-image : url('../img/Cloud_sky_blue-800x600px.jpg');
+    }
+
+    .sky-gradient {
+        background-image : url('../img/Sky_Gradient-800x600px.jpg');
+    }
+
+    .sky-cloud-blue-sky {
+        background-image : url('../img/Sky_cloud_blue_sky-800x600px.jpg');
+    }
+
+    .wild-horses {
+        background-image : url('../img/Wild_Horses-800x600px.jpg');
+    }
+
+    .cotton-candy-clouds {
+        background-image : url('../img/Cotton_Candy_Clouds-800x600px.jpg');
     }
 }
 
 @media only screen and (min-width : 800px) {
-    .bg-sky {
+    .sky-over-washington-monument {
         background-image : url('../img/Sky_over_Washington_Monument-1600x1200px.jpg');
+    }
+
+    .sea-of-clouds {
+        background-image : url('../img/Sea_of_Clouds-1600x1200px.jpg');
+    }
+
+    .cloud-sky-blue {
+        background-image : url('../img/Cloud_sky_blue-1600x1200px.jpg');
+    }
+
+    .sky-gradient {
+        background-image : url('../img/Sky_Gradient-1600x1200px.jpg');
+    }
+
+    .sky-cloud-blue-sky {
+        background-image : url('../img/Sky_cloud_blue_sky-1600x1200px.jpg');
+    }
+
+    .wild-horses {
+        background-image : url('../img/Wild_Horses-1600x1200px.jpg');
+    }
+
+    .cotton-candy-clouds {
+        background-image : url('../img/Cotton_Candy_Clouds-1600x1200px.jpg');
     }
 }
