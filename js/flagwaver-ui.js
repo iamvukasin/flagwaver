@@ -23,7 +23,8 @@
 
     // DOM elements
 
-    var $controlImgUpload,
+    var $wrapperPage,
+        $controlImgUpload,
         $setImgUploadMode,
         $inputImgLink,
         $setImgLink,
@@ -36,6 +37,10 @@
         $windDirectionControl;
 
     // Settings
+
+    var uiOptions = {
+        hideUI : false
+    };
 
     var flagWaverDefaults = {
             isWindOn : true,
@@ -132,10 +137,26 @@
     // Functions
     //
 
+    function setUIVisibility ( toHide ) {
+        console.log(toHide);
+        console.log(typeof toHide);
+        if ( toHide ) {
+            $wrapperPage
+                .removeClass( 'show-ui' )
+                .addClass( 'hide-ui' );
+        }
+        else {
+            $wrapperPage
+                .removeClass( 'hide-ui' )
+                .addClass( 'show-ui' );
+        }
+    }
+
     function setFlagOpts ( flagData ) { flagWaver.flag.setOpts( flagData ); }
 
     function fromHash () {
         var hashFrag = window.location.hash.split( '#' )[ 1 ],
+            uiOpts = {},
             flagOpts = {},
             windOpts = {},
             flagData;
@@ -150,11 +171,13 @@
                 flagOpts.topEdge       = flagData.topedge;
                 windOpts.isWindRandom  = flagData.windtype;
                 windOpts.windDirection = flagData.direction;
+                uiOpts.hideUI          = flagData.hideui;
             }
             else { // Compatibility with old version links
                 flagOpts.imgURL = window.unescape( hashFrag );
             }
         }
+        $.extend( uiOptions, uiOptions, uiOpts );
         $.extend( flagWaverOpts, flagWaverDefaults, windOpts );
         $.extend( flagWaverOpts.flag, flagWaverDefaults.flag, flagOpts );
         setFlagOpts( {
@@ -162,6 +185,8 @@
             topEdge : flagWaverOpts.flag.topEdge,
             hoisting : flagWaverOpts.flag.hoisting
         } );
+
+        setUIVisibility(uiOptions.hideUI);
 
         if ( !flagWaverOpts.isWindRandom ) {
             flagWaverControls.changeWindDirection();
@@ -228,6 +253,12 @@
     //
 
     hashVars.create( {
+        key : 'hideui',
+        defaultValue : false,
+        encode : function ( data ) { return true; }
+    } );
+
+    hashVars.create( {
         key : 'src',
         defaultValue : '',
         encode : function ( data ) { return window.encodeURIComponent( data ); }
@@ -285,6 +316,7 @@
         // Get DOM elements
         //
 
+        $wrapperPage          = $( '.wrapper-page' );
         $controlImgUpload     = $( '#control-img-upload' );
         $setImgUploadMode     = $( '#set-img-upload-mode' );
         $inputImgLink         = $( '#input-img-link' );

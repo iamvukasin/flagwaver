@@ -47,6 +47,16 @@ body {
     z-index  : 1;
 }
 
+.show-ui .page-header,
+.show-ui .page-controls {
+    visibility : visible;
+}
+
+.hide-ui .page-header,
+.hide-ui .page-controls {
+    visibility : hidden;
+}
+
 .page-controls {
     bottom : 0;
 }
