@@ -70,10 +70,12 @@
                 else {
                     flagWaver.setWindDirection( flagWaverOpts.windDirection );
                 }
+                toHash();
             },
             changeWindDirection : function () {
                 flagWaverOpts.isWindRandom = false;
                 flagWaver.setWindDirection( flagWaverOpts.windDirection );
+                toHash();
             },
             flag : {
                 setImgUploadMode : function () {
@@ -135,6 +137,7 @@
     function fromHash () {
         var hashFrag = window.location.hash.split( '#' )[ 1 ],
             flagOpts = {},
+            windOpts = {},
             flagData;
         if ( hashFrag ) {
             if ( window.location.href.search( /\#(\!|\?)/ ) >= 0 ) {
@@ -142,28 +145,37 @@
                     // Compatibility with old version links
                     window.location.hash.replace( /\#(\!|\?)/, '#?' )
                 );
-                flagOpts.imgURL   = flagData.src;
-                flagOpts.hoisting = flagData.hoisting;
-                flagOpts.topEdge  = flagData.topedge;
+                flagOpts.imgURL        = flagData.src;
+                flagOpts.hoisting      = flagData.hoisting;
+                flagOpts.topEdge       = flagData.topedge;
+                windOpts.isWindRandom  = flagData.windtype;
+                windOpts.windDirection = flagData.direction;
             }
             else { // Compatibility with old version links
                 flagOpts.imgURL = window.unescape( hashFrag );
             }
         }
+        $.extend( flagWaverOpts, flagWaverDefaults, windOpts );
         $.extend( flagWaverOpts.flag, flagWaverDefaults.flag, flagOpts );
         setFlagOpts( {
             imgSrc : flagWaverOpts.flag.imgURL || 'img/NZ.2b.png',
             topEdge : flagWaverOpts.flag.topEdge,
             hoisting : flagWaverOpts.flag.hoisting
         } );
+
+        if ( !flagWaverOpts.isWindRandom ) {
+            flagWaverControls.changeWindDirection();
+        }
     }
 
     function toHash ( isNewState ) {
         hashVars.setData(
             {
-                src      : flagWaverOpts.flag.imgURL,
-                hoisting : flagWaverOpts.flag.hoisting,
-                topedge  : flagWaverOpts.flag.topEdge
+                src       : flagWaverOpts.flag.imgURL,
+                hoisting  : flagWaverOpts.flag.hoisting,
+                topedge   : flagWaverOpts.flag.topEdge,
+                windtype  : flagWaverOpts.isWindRandom ? 'random' : 'fixed',
+                direction : Math.round( flagWaverOpts.windDirection )
             },
             {
                 isNewState : isNewState,
@@ -240,6 +252,24 @@
         defaultValue : 'top',
         decode : function ( value ) {
             if ( value.toLowerCase().match( /^(top|right|bottom|left)$/g ) ) {
+                return value;
+            }
+        }
+    } );
+
+    hashVars.create( {
+        key : 'windtype',
+        defaultValue : true,
+        decode : function ( value ) {
+            return !value.toLowerCase().match( /^fix(ed)?$/g );
+        }
+    } );
+
+    hashVars.create( {
+        key : 'direction',
+        defaultValue : 90,
+        decode : function ( value ) {
+            if ( value.match( /^(36[0]|3[0-5][0-9]|[12][0-9][0-9]|[1-9]?[0-9])$/g ) ) {
                 return value;
             }
         }
